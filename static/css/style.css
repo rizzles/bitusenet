@@ -1,0 +1,425 @@
+html, body, body div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, figure, footer, header, hgroup, menu, nav, section, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    outline: 0;
+    font-size: 100%;
+}
+article, aside, figure, footer, header, hgroup, nav, section {display: block;}
+button, input, select, textarea {margin: 0;}
+button {width: auto; overflow: visible; border: 0;}
+html {
+  font-size: 100%;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  height: 100%;
+}
+body {
+    background-color: #ed6100;
+    font-size: 15px;
+    line-height: 20px;
+    letter-spacing: 0.1em;
+    height: 100%;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #ddcfbf;
+}
+a {
+  color: white;
+  text-decoration: none;
+  margin: 0; 
+  padding: 0; 
+  font-size: 15px;
+}
+a:hover { 
+    text-decoration: underline;
+}
+img {
+    max-width: 100%;
+}
+ul {
+    list-style: none;
+}
+p {
+    font-size: 13px;
+}
+h1 {
+    font-size: 78px;
+    line-height: 1.0em;
+}
+h2 {
+    font-size: 50px;
+    line-height: 1.0em;
+    color: #333;
+}
+h3 {
+    font-size: 30px;
+    color: #a54201;
+}
+h4 {
+    font-size: 22px;
+}
+h5 {
+    font-size: 16px;
+}
+small {
+    display: block;
+    color: #888;
+    font-size: 11px;
+    line-height: 16px;
+}
+.white {
+    color: #fcfcfc;
+}
+.dark {
+    color: #333;
+}
+.gray {
+    color: #666;
+}
+.lightgray {
+    color: #888;
+}
+.error {
+    margin-left: 165px;
+    margin-bottom: 5px;
+    color: #a54201;
+}
+@font-face {
+    font-family: league;
+    src: url('/static/fonts/leaguegothic-regular-webfont.ttf');
+}
+header {
+    width: 100%;
+    background-color: #ed6100;
+    height: 100px;
+}
+#header_content {
+    width: 907px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+#server {
+    height: 500px;
+}
+#server_content {
+    width: 907px;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+#logo {
+    position:absolute;
+}
+header #xraid {
+    clear: both;
+    float: left;
+    margin-top: 20px;
+    margin-right: 20px;
+    display:block;
+}
+#sideserver {
+    float: right;
+    margin-top: 70px;
+    display: block;
+}
+h1 {
+    font-family: league;
+    color: white;
+    text-shadow: 1px 1px 1px #444;
+    line-height: 0.85em;
+}
+#sideserver a {
+    margin-top: 10px;
+}
+nav {
+    margin-top: 30px;
+    float: right;
+    border-radius: 10px;
+    height: 44px;
+    line-height: 44px;
+
+    border-color: rgba(0, 0, 0, 0.85);
+    border-width: 1px;
+    border-style: solid;
+
+    background-color: rgba(40, 40, 40, 0.75);
+    background-image: -webkit-gradient( linear, left bottom, left top, color-stop(0.21, rgba(35, 35, 35, 0.75)), color-stop(0.61, rgba(50, 50, 50, 0.75)) );
+
+    box-shadow: inset 0 1px 0px rgba(255, 255, 255, 0.2), 0px 0.5px 3px 2px rgba(0, 0, 0, 0.3);
+}
+nav ul li {
+    float: left;
+    border-right-color: rgba(0,0,0,0.85);
+    border-right-width: 1px;
+    border-right-style: solid;
+}
+nav ul li + li {
+    border-left-color: rgba(255,255,255,0.2);
+    border-left-width: 1px;
+    border-left-style: solid;
+}
+nav ul li + li {
+    border-right-width: 0px;
+}
+nav li a {
+    display: block;
+    text-align: center;
+    width: 100px;
+    color: #ddcfbf;
+}
+nav li a:hover {
+    text-decoration: none;
+    color: white;
+}
+strong {
+    color: #f7931a;
+}
+#call {
+    height: 100px;
+    -webkit-box-shadow: 0 -7px 30px rgba(0,0,0,0.3);
+}
+#call_content {
+    width: 907px;
+    margin: 0 auto;
+}
+#call_content h3 {
+    float: left;
+    padding-top: 40px;
+
+}
+#call_content img {
+    float: right;
+    padding-top: 10px;
+    margin-right: 20px;
+}
+#firstrow {
+    height: 210px;
+    background-color: #d65400;
+    padding-top: 20px;
+    width: 100%;
+    -webkit-box-shadow: inset 0 0 30px rgba(0,0,0,0.3);
+    color: white;
+}
+#firstrow_content {
+    width: 907px;
+    margin: 0 auto;
+}
+.column {
+    float: left;
+    width: 282px;
+    padding: 10px;
+    padding-top: 40px;
+}
+.column h4 {
+    background: url(/static/images/bullet.png) no-repeat;
+    padding: 15px 0 15px 55px;
+}
+.column p {
+    padding: 10px 10px;
+    clear: both;
+}
+#secondrow {
+    height: 110px;
+}
+#secondrow_content {
+    width: 907px;
+    margin: 0 auto;
+}
+#secondrow_content h3 {
+    float: left;
+    padding-top: 40px;
+}
+#faq {
+    width: 100%;
+}
+#faq_content {
+    width: 907px;
+    margin: 0 auto;
+}
+#faq_content label {
+    margin-top: 30px;
+    display: block;
+}
+#faq_content h3 {
+    margin-top: 10px;
+    margin-left: 40px;
+    display: block;
+    line-height: 1.2em;
+}
+
+#signup {
+    width: 100%;
+}
+#signup_content {
+    width: 907px;
+    margin: 0 auto;
+}
+#signup_content label {
+    display: inline-block;
+    width: 125px;
+    text-align: right;
+}
+#signup_content h3 {
+    display: inline;
+}
+
+#signup_content li {
+    margin-top: 30px;
+}
+#signupform {
+    margin: 30px 0 100px;
+}
+#signupcall {
+    width: 100%;
+    height: 100px;
+    margin: 50px auto 0 auto;
+    border-radius: 10px;
+    background-color: #D65400;
+    -webkit-box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.3);
+}
+#signupcall p {
+    color: white;
+    text-align: center;
+    padding-top: 30px;
+}
+
+footer {
+    width: 100%;
+    clear: both;
+    -webkit-box-shadow: inset 0px 7px 13px rgba(0,0,0,0.2);
+}
+#footer_content {
+    width: 907px;
+    margin: 0 auto;
+    padding: 60px 0;
+    text-align: center;
+}
+footer ul li {
+    float: left;
+    display: block;
+    text-align: center;
+    width: 220px;
+}
+
+
+
+
+
+input,
+textarea {
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+
+    -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -ms-transition: border linear 0.2s, box-shadow linear 0.2s;
+    -o-transition: border linear 0.2s, box-shadow linear 0.2s;
+    transition: border linear 0.2s, box-shadow linear 0.2s;
+    color: #333;
+}
+input:focus,
+textarea:focus {
+    border-color: rgba(247, 104, 37, 0.8);
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(247, 104, 37, 0.6);
+    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(247, 104, 37, 0.6);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(247, 104, 37, 0.6);
+    background-color: #fcfcfc;
+    outline: 0;
+}
+label {
+    color: white;
+    text-shadow: 0 1px 0 #555;
+    margin-right: 30px;
+}
+textarea,
+input {
+  display: inline-block;
+  width: auto;
+  min-width: 16px;
+  height: 40px;
+  padding: 2px 5px;
+  font-weight: normal;
+  line-height: 20px;
+  text-shadow: 0 1px 0 #ffffff;
+  vertical-align: middle;
+  background-color: #eeeeee;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 18px;
+}
+textarea {
+  height: 100px;
+}
+
+
+
+.btn {
+    color: white;
+    display: inline-block;
+    *display: inline;
+    /* IE7 inline-block hack */
+    *zoom: 1;
+    padding: 16px 16px;
+    margin-bottom: 0;
+    font-size: 18px;
+    line-height: 18px;
+    text-align: center;
+    vertical-align: middle;
+    background-color: #f7931a;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+    *margin-left: .3em;
+    text-shadow: none;
+}
+.btn:hover {
+    background: #e25d20;
+    text-decoration: none;
+}
+.btn-large {
+  font-size: 20px;
+  line-height: normal;
+  padding: 15px 55px;
+}
+.btn-small {
+  padding: 5px 9px;
+  font-size: 11px;
+  line-height: 16px;
+}
+.span12 {
+  width: 940px;
+}
+.span11 {
+  width: 860px;
+}
+.span10 {
+  width: 780px;
+}
+.span9 {
+  width: 700px;
+}
+.span8 {
+  width: 620px;
+}
+.span7 {
+  width: 540px;
+}
+.span6 {
+  width: 460px;
+}
+.span5 {
+  width: 380px;
+}
+.span4 {
+  width: 300px;
+}
+.span3 {
+  width: 220px;
+}
+.span2 {
+  width: 140px;
+}
+.span1 {
+  width: 70px;
+}

@@ -1,0 +1,34 @@
+{% include "modules/head.html" %}
+
+  <body>
+    <header>
+      <div id="header_content">
+	<a href="/"><img src="/static/images/logomedium.png" width="100" height="100" id="logo"></a>
+	{% include "modules/nav.html" %}	
+      </div>
+    </header>
+
+    <section id="faq" style="margin-bottom: 250px">
+      <div id="faq_content">
+	<div style="margin:40px 0 30px; text-align: center;">
+	  <h1>FAQ</h1>
+	</div>
+
+	<hr>
+
+	<ul style="margin: 75px 0;">
+	  <li><label>Can I post to usenet on your server?</label><h3>NO</h3></li>
+	  <li><label>What is the server address?</label><h3>news.bitusenet.com</h3></li>
+	  <li><label>What ports can I use?</label><h3>53, 80, 119, 443, 8080, 9000</h3></li>
+	  <li><label>What ports can I use with SSL?</label><h3>563</h3></li>
+	  <li><label>How many simultaneous connections to the server are allowed?</label><h3>50</h3></li>
+	  <li><label>I have more question. How can I get ahold of you?</label><h3>Email support@bitusenet.com anytime.</h3></li>
+	  <li><label>I signed up and can't login to the server.</label><h3>The account will not be active until we receive confirmation of the bitcoin being sent. Give it roughly a half hour after you send the coin. </h3></li>
+	  <li><label>Do you accept any other form of payment other than bitcoin?</label><h3>No. Bitcoins only.</h3></li>	  
+	</ul>
+      </div>
+    </section>
+
+    {% include "modules/footer.html" %}
+  </body>
+</html>

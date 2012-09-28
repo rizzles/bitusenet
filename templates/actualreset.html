@@ -1,0 +1,40 @@
+{% include "modules/head.html" %}
+
+  <body>
+    <header>
+      <div id="header_content">
+	<a href="/"><img src="/static/images/logomedium.png" width="100" height="100" id="logo"></a>
+	{% include "modules/nav.html" %}	
+      </div>
+    </header>
+
+    <section id="signup" style="margin-bottom: 250px">
+      <div id="signup_content">
+	<div style="margin:40px 0 30px; text-align: center;">
+	  <h1>Password Reset</h1>
+	  <p style="margin-top: 10px; color: white;">Changing your password will require you to update your usenet reader software with the new password.
+	</div>
+
+	<hr>
+
+	<form method="post" action="/passwordreset" id="signupform"> 
+	  {{ xsrf_form_html() }}
+	  <div>
+	    <input type="hidden" value="{{resetid}}" name="resetid">
+	    {% if errors == "passwordempty" %}
+	    <div id="passworderror" class="error">What do you want for your new password?</div>
+	    {% else %}
+	    <div id="passworderror" class="error">&nbsp;</div>
+	    {% end %}
+	    <label>Password</label>
+	    <input type="password" class="span5" tabindex="1" name="password" id="password">
+	  </div>
+	  <button type="submit" class="btn btn-large" style="margin-top:40px; margin-left:160px;" tabindex="2" id="password_button">Reset Password</button>
+	</form>
+      </div>
+    </section>
+
+    {% include "modules/footer.html" %}
+
+  </body>
+</html>

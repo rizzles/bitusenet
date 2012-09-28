@@ -1,0 +1,49 @@
+{% include "modules/head.html" %}
+
+  <body>
+    <header>
+      <div id="header_content">
+	<a href="/"><img src="/static/images/logomedium.png" width="100" height="100" id="logo"></a>
+	{% include "modules/nav.html" %}	
+      </div>
+    </header>
+
+    <section id="signup">
+      <div id="signup_content">
+
+	<div style="margin:40px 0 30px; text-align: center;">
+	  <h1>Bitusenet Login</h1>
+	</div>
+
+	<div style="margin: 75px 0;">
+	  <form method="post" action="/login">
+	    {{ xsrf_form_html() }}
+	    {% if errors == "notfound" %}
+	    <div class="error">No account with that username or password</div>
+	    {% else %}
+	    <div class="error">&nbsp;</div>
+	    {% end %}
+	    <div>
+	      <label>Username</label>
+	      <input type="text" class="span5" tabindex="1" name="username">
+	    </div>
+
+	    <div style="margin-top: 40px;">
+	      <label>Password</label>
+	      <input type="password" class="span5" tabindex="2" name="password">
+	      <a href="/reset" style="margin-left: 20px;">I forgot</a>
+	    </div>
+	    
+	    <div>
+	    <button type="submit" class="btn btn-large" style="margin-top:40px; margin-left:160px;" tabindex="3">Login</button>
+	    </div>
+	  </form>
+
+	</div>
+      </div>
+    </section>
+    {% include "modules/footer.html" %}
+    {% include "modules/scripts.html" %}
+
+  </body>
+</html>
