@@ -205,7 +205,7 @@ strong {
 }
 .column {
     float: left;
-    width: 282px;
+    width: 290px;
     padding: 10px;
     padding-top: 40px;
 }
@@ -297,7 +297,7 @@ footer ul li {
     float: left;
     display: block;
     text-align: center;
-    width: 220px;
+    width: 240px;
 }
 
 

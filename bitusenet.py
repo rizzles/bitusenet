@@ -171,6 +171,7 @@ class ActualResetHandler(BaseHandler):
         hashed_password = hashlib.sha512(salt + newpassword).hexdigest()
 
         collection.update({"_id":user['_id']}, {"$set": {'resetid':None, 'resettime':None, 'salt':salt, 'password':hashed_password, 'raw':newpassword}})
+        authdb.execute("""UPDATE auth.logins SET password = %s WHERE username = %s""", newpassword, user['username'])        
 
         self.redirect('/login')
 
