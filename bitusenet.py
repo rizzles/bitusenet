@@ -231,6 +231,14 @@ class SignupHandler(BaseHandler):
         # Check to see if username already exists
         exists = usercoll.find_one({'username': username})
         if exists:
+            logging.error('username exists on website')
+            self.render('signup.html', errors="usernameexists")
+            return
+
+        # Check if username exists in auth db.
+        exists = authdb.get("""SELECT * FROM auth.logins WHERE username = %s LIMIT 1""", username)
+        if exists:
+            logging.error('username exists in auth db.')
             self.render('signup.html', errors="usernameexists")
             return
 
