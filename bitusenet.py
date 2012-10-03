@@ -283,7 +283,6 @@ class CallbackHandler(BaseHandler):
         pass
 
     def post(self):
-        print "test"
         logging.info("callback request coming in")
         data = self.request.body
         json_data = tornado.escape.json_decode(data)
