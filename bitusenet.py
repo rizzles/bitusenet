@@ -52,7 +52,7 @@ class Application(tornado.web.Application):
             site_name='bitusenet',
             login_url='/login',
             autoescape=None,
-            debug=False,
+            debug=True,
             gzip=True
             )
         tornado.web.Application.__init__(self, handlers, **settings)

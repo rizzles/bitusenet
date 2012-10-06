@@ -4,14 +4,14 @@
 
     <header>
       <div id="header_content">
-	<a href="/"><img src="/static/images/logo.png" id="logo" width="175"></a>
+	<a href="/"><img src="/static/images/logo.png" id="logo" width="170"></a>
 	{% include "modules/nav.html" %}
       </div>
     </header>
 
     <section id="server">
       <div id="server_content">
-	<img id="xraid" src="/static/images/server.jpg" width="580">
+	<img id="xraid" src="/static/images/server.jpg" width="560">
 	<div id="sideserver">
 	  <h1>UNLIMITED<br><strong>USENET</strong><br> ACCESS FOR<br> 1 <strong>BITCOIN.</strong></h1>
 	  <a href="https://www.bitusenet.com/signup" class="btn btn-large signuppage">Sign Up</a>
@@ -51,6 +51,10 @@
 
     {% include "modules/footer.html" %}
     {% include "modules/scripts.html" %}
-
+    <script>
+      $(document).ready(function() {
+        mixpanel.track("homepage");
+      });
+    </script>
   </body>
 </html>

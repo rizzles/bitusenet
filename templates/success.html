@@ -33,5 +33,10 @@
     </section>
 
     {% include "modules/footer.html" %}
+    <script>
+      $(document).ready(function() {
+        mixpanel.track("success");
+      });
+    </script>
   </body>
 </html>
