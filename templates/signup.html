@@ -59,8 +59,9 @@
     {% include "modules/footer.html" %}
     {% include "modules/scripts.html" %}
     <script>
-      mixpanel.track("signuppage");
+
       $(document).ready(function() {
+          mixpanel.track("signuppage");
           $("input[name='username']").focus();
 
           $("#signup_button").click(function(event) {
