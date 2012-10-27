@@ -3,7 +3,7 @@ import tornado.database
 
 
 authdb = tornado.database.Connection(
-    host='10.101.26.249', database='auth',
+    host='10.114.97.213', database='auth',
     user='nick', password='mohair94')
 
 # using the itchy headers mongo db
