@@ -48,7 +48,7 @@ class Application(tornado.web.Application):
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
             xsrf_cookies=True,
-            cookie_secret="92oP7zEYxAB4YGkL3gUmGerJFuYhjEQnp3XdTP9oxco=",
+            cookie_secret="92oP7zEYxAB4YGkL3gUmGerJFuYhjEQnp3XdTP9oxc1=",
             site_name='bitusenet',
             login_url='/login',
             autoescape=None,
@@ -102,6 +102,11 @@ class ResetHandler(BaseHandler):
         user = collection.find_one({'email':email})
         
         if not user:
+            logging.error('password reset requested for unknown email address')
+            self.redirect("/resetsent")
+            return
+
+        if user['active'] == False:
             logging.error('password reset requested for unknown email address')
             self.redirect("/resetsent")
             return
@@ -181,6 +186,7 @@ class HomeHandler(BaseHandler):
 
 
 class DashboardHandler(BaseHandler):
+    @tornado.web.authenticated
     def get(self):
         self.render('dashboard.html')
 

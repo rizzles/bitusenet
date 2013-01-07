@@ -19,9 +19,10 @@
 
 	<ul style="margin: 75px 0;">
 	  {% if not current_user['active'] %}
-	  <li><label>Account Status:</label><h3>We have not received the bitcoin.</h3></li>
+	  <li><label>Account Status</label><h3>We have not received the bitcoin.</h3></li>
+	  <li><label>Bitcoin Address</label><h3>{{current_user['address']}}</h3></li>
 	  {% else %}
-	  <li><label>Account Status:</label><h3>Bitcoin received. Server login is active.</h3></li>
+	  <li><label>Account Status</label><h3>Bitcoin received. Server login is active.</h3></li>
 	  {% end %}
 
 	  <li><label>Username</label><h3>{{current_user['username']}}</h3></li>
@@ -32,7 +33,9 @@
 	  <li><label>Connections</label><h3>50</h3></li>
 	  <li><label>Retention</label><h3>1100 days</h3></li>
 	  <li><label>Problems?</label><h3>support@bitusenet.com</h3></li>
+	  {% if current_user['email'] %}
 	  <li><label>Password</label><a href="https://www.bitusenet.com/reset"><h3 style="color:white;">Reset Password</h3></a></li>
+	  {% end %}
 	</ul>
 
       </div>

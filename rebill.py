@@ -32,7 +32,7 @@ now = datetime.datetime.now()
 logger.info("%s"%now)
 for user in users:
     created = datetime.datetime.strptime(user['created'], "%Y-%m-%d %H:%M:%S")
-    activatedcheck = created + datetime.timedelta(days=1)
+    activatedcheck = created + datetime.timedelta(hours=6)
     createdcheck = created + datetime.timedelta(days=30)
 
     if now > activatedcheck and user['active'] == False:

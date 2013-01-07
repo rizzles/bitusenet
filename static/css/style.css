@@ -55,6 +55,7 @@ h2 {
 h3 {
     font-size: 30px;
     color: #a54201;
+    color: #eee;
     letter-spacing: 0.05em;
 }
 h4 {
@@ -356,7 +357,7 @@ textarea:focus {
 }
 label {
     color: white;
-    text-shadow: 0 1px 0 #555;
+
     margin-right: 30px;
 }
 textarea,
