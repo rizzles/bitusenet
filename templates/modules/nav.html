@@ -10,14 +10,22 @@
     {% else %}
     <li>
       {% if aff %}
-      <a href="https://www.bitusenet.com/signup?aff={{aff}}" class="signuppage">Sign Up</a>
+        {% if uid %}
+        <a href="https://www.bitusenet.com/signup?aff={{aff}}&uid={{uid}}" class="signuppage">Sign Up</a>
+	{% else %}
+        <a href="https://www.bitusenet.com/signup?aff={{aff}}" class="signuppage">Sign Up</a>
+	{% end %}
       {% else %}
       <a href="https://www.bitusenet.com/signup" class="signuppage">Sign Up</a>
       {% end %}
     </li>
     <li>
       {% if aff %}
-      <a href="https://www.bitusenet.com/login?aff={{aff}}">Login</a>
+        {% if uid %}
+        <a href="https://www.bitusenet.com/login?aff={{aff}}&uid={{uid}}">Login</a>
+	{% else %}
+        <a href="https://www.bitusenet.com/login?aff={{aff}}">Login</a>
+	{% end %}
       {% else %}
       <a href="https://www.bitusenet.com/login">Login</a>
       {% end %}
