@@ -35,7 +35,11 @@
 	    <div style="margin-top: 40px;">
 	      <label>Password</label>
 	      <input type="password" class="span5" tabindex="2" name="password">
+	      {% if aff %}
+	      <a href="/reset?aff={{aff}}" style="margin-left: 20px; text-decoration: underline;">I forgot</a>
+	      {% else %}
 	      <a href="/reset" style="margin-left: 20px; text-decoration: underline;">I forgot</a>
+	      {% end %}
 	    </div>
 	    
 	    <div>
