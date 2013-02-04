@@ -4,7 +4,11 @@
 
     <header>
       <div id="header_content">
+	{% if aff %}
+	<a href="/?aff={{aff}}"><img src="/static/images/logo.png" id="logo" width="170"></a>
+	{% else %}
 	<a href="/"><img src="/static/images/logo.png" id="logo" width="170"></a>
+	{% end %}
 	{% include "modules/nav.html" %}
       </div>
     </header>
@@ -14,7 +18,11 @@
 	<img id="xraid" src="/static/images/server.jpg" width="560">
 	<div id="sideserver">
 	  <h1>UNLIMITED<br><strong>USENET</strong><br> ACCESS FOR<br> 0.60 <strong>BITCOIN.</strong></h1>
+	  {% if aff %}
+	  <a href="https://www.bitusenet.com/signup?aff={{aff}}" class="btn btn-large signuppage">Sign Up</a>
+	  {% else %}
 	  <a href="https://www.bitusenet.com/signup" class="btn btn-large signuppage">Sign Up</a>
+	  {% end %}
 	</div>
       </div>
     </section>
@@ -22,7 +30,11 @@
     <section id="call">
       <div id="call_content">
 	<h3>One months access for only 0.60 bitcoin</h3>
+	{% if aff %}
+	<a href="https://www.bitusenet.com/signup?aff={{aff}}" class="signuppage"><img src="/static/images/bitcoinaccepted.png" width="200"></a>
+	{% else %}
 	<a href="https://www.bitusenet.com/signup" class="signuppage"><img src="/static/images/bitcoinaccepted.png" width="200"></a>
+	{% end %}
       </div>
     </section>
 

@@ -1,7 +1,13 @@
 <div id="header">
   <a href="/"><img src="/static/images/logo.png" width="100" height="100"></a>
   <span id="menu">
+    {% if aff %}
+    <a href="/signup?aff={{aff}}">Sign Up</a>
+    <a href="/login?aff={{aff}}">Login</a>
+    {% else %}
     <a href="/signup">Sign Up</a>
     <a href="/login">Login</a>
+    {% end %}
+
   </span>
 </div>

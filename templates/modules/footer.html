@@ -2,8 +2,13 @@
   <div id="footer_content">
     <ul>
       <li>2013 Bitusenet</li>
+      {% if aff %}
+      <li><a href="/contact?aff={{aff}}">Contact</a></li>
+      <li><a href="/faq?aff={{aff}}">FAQ</a></li>
+      {% else %}
       <li><a href="/contact">Contact</a></li>
       <li><a href="/faq">FAQ</a></li>
+      {% end %}
     </ul>
   </div>
 </footer>

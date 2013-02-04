@@ -9,10 +9,18 @@
     </li>
     {% else %}
     <li>
+      {% if aff %}
+      <a href="https://www.bitusenet.com/signup?aff={{aff}}" class="signuppage">Sign Up</a>
+      {% else %}
       <a href="https://www.bitusenet.com/signup" class="signuppage">Sign Up</a>
+      {% end %}
     </li>
     <li>
+      {% if aff %}
+      <a href="https://www.bitusenet.com/login?aff={{aff}}">Login</a>
+      {% else %}
       <a href="https://www.bitusenet.com/login">Login</a>
+      {% end %}
     </li>
     {% end %}
   </ul>

@@ -90,12 +90,14 @@ class BaseHandler(tornado.web.RequestHandler):
 
 class ResetHandler(BaseHandler):
     def get(self):
-        self.render('reset.html', errors=None)
+        aff = self.get_argument('aff', None)
+        self.render('reset.html', errors=None, aff=aff)
 
     def post(self):
         email = self.get_argument('email', None)
+        aff = self.get_argument('aff', None)        
         if not email:
-            self.render('reset.html', errors='emailempty')
+            self.render('reset.html', errors='emailempty', aff=aff)
             return
 
         collection = self.mongodb.bitusenet
@@ -120,14 +122,16 @@ class ResetHandler(BaseHandler):
 
 class ResetSentHandler(BaseHandler):
     def get(self):
-        self.render('resetsent.html')
+        aff = self.get_argument('aff', None)
+        self.render('resetsent.html', aff=aff)
 
 
 class ActualResetHandler(BaseHandler):
     def get(self):
         logging.info('password reset link from email received')
         id = self.get_argument('id', None)
-        
+        aff = self.get_argument('aff', None)
+
         if not id:
             logging.error('no id was included with password reset request')
             self.redirect('/reset')
@@ -145,14 +149,15 @@ class ActualResetHandler(BaseHandler):
         # request is over an hour old.
         if age > 3600:
             logging.error('password reset link is over an hour old')
-            self.render('resetexpired.html')
+            self.render('resetexpired.html', aff=aff)
             return
 
-        self.render('actualreset.html', errors=None, resetid=id)
+        self.render('actualreset.html', errors=None, resetid=id, aff=aff)
 
     def post(self):
         resetid = self.get_argument("resetid", None)
         newpassword = self.get_argument("password", None)
+        aff = self.get_argument('aff', None)
 
         if not resetid:
             logging.error('No resetid sent along with password reset attempt')
@@ -161,7 +166,7 @@ class ActualResetHandler(BaseHandler):
 
         if not newpassword:
             logging.error('No password sent along with password reset attempt')
-            self.render('actualreset.html', errors="passwordempty", resetid=resetid)
+            self.render('actualreset.html', errors="passwordempty", resetid=resetid, aff=aff)
             return
 
         collection = self.mongodb.bitusenet
@@ -182,22 +187,26 @@ class ActualResetHandler(BaseHandler):
 
 class HomeHandler(BaseHandler):
     def get(self):
-        self.render('index.html')
+        aff = self.get_argument('aff', None)
+        self.render('index.html', aff=aff)
 
 
 class DashboardHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
-        self.render('dashboard.html')
+        aff = self.get_argument('aff', None)
+        self.render('dashboard.html', aff=aff)
 
 
 class LoginHandler(BaseHandler):
     def get(self):
-        self.render('login.html', errors=None)
+        aff = self.get_argument('aff', None)
+        self.render('login.html', errors=None, aff=aff)
 
     def post(self):
         username = self.get_argument('username', None)
         password = self.get_argument('password', None)
+        aff = self.get_argument('aff', None)
 
         collection = self.mongodb.bitusenet
         users = collection.find({'username': username})
@@ -212,7 +221,7 @@ class LoginHandler(BaseHandler):
                 return
 
         logging.info("Could not match email or password on login")
-        self.render("login.html", errors="notfound")
+        self.render("login.html", errors="notfound", aff=aff)
         
 
 class SignupHandler(BaseHandler):
@@ -280,11 +289,12 @@ class SignupHandler(BaseHandler):
 class SuccessHandler(BaseHandler):
     @tornado.web.authenticated
     def get(self):
+        aff = self.get_argument('aff', None)
         if not self.current_user['address']:
             self.send_error()
             logging.error("No btc address associated with users account. No addresses free?")
             return
-        self.render('success.html', address=self.current_user['address'])
+        self.render('success.html', address=self.current_user['address'], aff=aff)
 
 
 class CallbackHandler(BaseHandler):
@@ -347,12 +357,14 @@ class CallbackHandler(BaseHandler):
 
 class FAQHandler(BaseHandler):
     def get(self):
-        self.render('faq.html')
+        aff = self.get_argument('aff', None)
+        self.render('faq.html', aff=aff)
 
 
 class ContactHandler(BaseHandler):
     def get(self):
-        self.render('contact.html')
+        aff = self.get_argument('aff', None)
+        self.render('contact.html', aff=aff)
 
 
 class LogoutHandler(BaseHandler):
