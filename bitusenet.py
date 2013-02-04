@@ -227,10 +227,10 @@ class SignupHandler(BaseHandler):
         aff = self.get_argument('aff', None)
         
         if not username:
-            self.render('signup.html', errors="usernameempty")
+            self.render('signup.html', errors="usernameempty", aff=aff)
             return
         if not password:
-            self.render('signup.html', errors="passwordempty")
+            self.render('signup.html', errors="passwordempty", aff=aff)
             return
 
         usercoll = self.mongodb.bitusenet
@@ -240,14 +240,14 @@ class SignupHandler(BaseHandler):
         exists = usercoll.find_one({'username': username})
         if exists:
             logging.error('username exists on website')
-            self.render('signup.html', errors="usernameexists")
+            self.render('signup.html', errors="usernameexists", aff=aff)
             return
 
         # Check if username exists in auth db.
         exists = authdb.get("""SELECT * FROM auth.logins WHERE username = %s LIMIT 1""", username)
         if exists:
             logging.error('username exists in auth db.')
-            self.render('signup.html', errors="usernameexists")
+            self.render('signup.html', errors="usernameexists", aff=aff)
             return
 
         # password salt and hash
