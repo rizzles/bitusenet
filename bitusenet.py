@@ -217,12 +217,14 @@ class LoginHandler(BaseHandler):
 
 class SignupHandler(BaseHandler):
     def get(self):
-        self.render('signup.html', errors=None)
+        aff = self.get_argument('aff', None)
+        self.render('signup.html', errors=None, aff=aff)
 
     def post(self):
         username = self.get_argument('username', None)
         password = self.get_argument('password', None)
         email = self.get_argument('email', None)
+        aff = self.get_argument('aff', None)
         
         if not username:
             self.render('signup.html', errors="usernameempty")
@@ -265,7 +267,8 @@ class SignupHandler(BaseHandler):
                 'email': email,
                 'active': False,
                 'address': btcaddress['address'],
-                'created': time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime())
+                'created': time.strftime("%Y-%m-%d %H:%M:%S", time.gmtime()),
+                'aff': aff
                 }
         usercoll.insert(user)
         addresscoll.update({'address':btcaddress['address']},{'$set':{'used':True}})
