@@ -323,12 +323,13 @@ class CallbackHandler(BaseHandler):
                 return
 
             # check total sent == 1 btc
+            """
             total = int(dbaddress['amount']) + int(amount)
             if total < 100000000:
                 logging.error("amount received was not a full bitcoin. %s - %s", amount, user['username'])
                 addresscoll.update({'address':address},{'$set':{'amount':total}})
                 return
-            
+            """
             # everything is good to go. found matching bitcoin addresses
             addresscoll.update({'address':address}, {'$set':{'used':False, 'amount':0}})
 

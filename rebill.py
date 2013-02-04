@@ -11,8 +11,17 @@ import pymongo
 
 import logging
 
-# Setup logging                                                                                                                                                                                                                               
-LOG_FILENAME = '/home/ubuntu/bitusenet_rebill.txt'
+define("mysql_user", default="nick", help="database user")
+define("mysql_password", default="mohair94", help="database password")
+define("users_host", default="10.114.97.213:3306", help="users database")
+define("users_database", default="newzbeta", help="users name")
+
+usersdb = tornado.database.Connection(
+    host=options.users_host, database=options.users_database,
+    user=options.mysql_user, password=options.mysql_password)
+
+# Setup logging
+LOG_FILENAME = "/home/ubuntu/bitusenet_rebill.txt"
 logger = logging.getLogger('Logger')
 logger.setLevel(logging.DEBUG)
 handler = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=5242880, backupCount=5)
@@ -45,3 +54,4 @@ for user in users:
         logger.info("Deleting user %s. Account expired"%user['username'])
         logger.info("")
         mongousers.remove({'username':user['username']})
+        usersdb.execute("""DELETE FROM auth.logins WHERE username = %s""", user['username'])
