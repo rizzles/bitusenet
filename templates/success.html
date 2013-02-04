@@ -3,7 +3,11 @@
   <body>
     <header>
       <div id="header_content">
+	{% if aff %}
+	<a href="/?aff={{aff}}"><img src="/static/images/logomedium.png" width="100" height="100" id="logo"></a>
+	{% else %}
 	<a href="/"><img src="/static/images/logomedium.png" width="100" height="100" id="logo"></a>
+	{% end %}
 	{% include "modules/nav.html" %}	
       </div>
     </header>
