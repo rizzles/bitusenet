@@ -9,6 +9,7 @@ import hashlib
 import uuid
 import re
 import datetime
+import requests
 
 import tornado.httpserver
 import tornado.ioloop
@@ -24,6 +25,8 @@ import emailer
 LOGFILE = '/var/log/bitusenet/bitusenet.log'
 LOGLEVEL = logging.INFO
 TOKEN = "27026cd1ab483989a80712e4a3431b159c597b02"
+private_key = "a4ca87dcac42895c29"
+
 
 class Application(tornado.web.Application):
     def __init__(self):
@@ -73,6 +76,9 @@ class BaseHandler(tornado.web.RequestHandler):
         user = collection.find_one({'username': user})
         return user
 
+    def create_sig(data):
+        return hashlib.sha1(repr(data) + "," + private_key).hexdigest()
+    
     def write_error(self, status_code, exc_info=None, **kwargs):
         if status_code == 500:
             logging.error("500 error. Big problem")
@@ -349,13 +355,21 @@ class CallbackHandler(BaseHandler):
                 return
 
             # check total sent == 1 btc
-            """
             total = int(dbaddress['amount']) + int(amount)
-            if total < 100000000:
+            #if total < 100000000:
+            if total < 60000000:
                 logging.error("amount received was not a full bitcoin. %s - %s", amount, user['username'])
                 addresscoll.update({'address':address},{'$set':{'amount':total}})
                 return
-            """
+
+            if user.has_key('aff') and user['aff']:
+                logging.info('Yep, user is part of the affiliate network')
+                if user['aff'] == 'nco' and user.has_key('uid') and user['uid']:
+                    logging.info('newzb.net affiliate link confirmed. Calling newzb callback')
+                    uidhash = self.create_sig(user['uid'])
+                    r = requests.get('https://newzb.net/bitusecall/?uid=%s&hash=%s'%(user['uid'], uidhash))
+                    print r
+
             # everything is good to go. found matching bitcoin addresses
             addresscoll.update({'address':address}, {'$set':{'used':False, 'amount':0}})
 
