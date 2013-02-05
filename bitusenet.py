@@ -76,7 +76,7 @@ class BaseHandler(tornado.web.RequestHandler):
         user = collection.find_one({'username': user})
         return user
 
-    def create_sig(data):
+    def create_sig(self, data):
         return hashlib.sha1(repr(data) + "," + private_key).hexdigest()
     
     def write_error(self, status_code, exc_info=None, **kwargs):
@@ -410,7 +410,7 @@ class GoogHandler(BaseHandler):
 
 class A404Handler(BaseHandler):
     def get(self):
-        self.render('404.html', title="Bitusenet - Not Found", aff=aff, uid=uid)
+        self.render('404.html', title="Bitusenet - Not Found", aff=None, uid=None)
 
 
 class LogoutHandler(BaseHandler):
