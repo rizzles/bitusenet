@@ -368,7 +368,7 @@ class CallbackHandler(BaseHandler):
                     logging.info('newzb.net affiliate link confirmed. Calling newzb callback')
                     uidhash = self.create_sig(user['uid'])
                     r = requests.get('https://newzb.net/bitusecall/?uid=%s&hash=%s'%(user['uid'], uidhash))
-                    print r
+                    logging.info(r)
 
             # everything is good to go. found matching bitcoin addresses
             addresscoll.update({'address':address}, {'$set':{'used':False, 'amount':0}})
