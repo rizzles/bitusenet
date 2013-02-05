@@ -76,16 +76,16 @@ class BaseHandler(tornado.web.RequestHandler):
     def write_error(self, status_code, exc_info=None, **kwargs):
         if status_code == 500:
             logging.error("500 error. Big problem")
-            self.render('500.html', title="Bitusenet - Error")
+            self.render('500.html', title="Bitusenet - Error", aff=None, uid=None)
         else:
-            self.render('404.html', title="Bitusenet - Error")
+            self.render('404.html', title="Bitusenet - Error", aff=None, uid=None)
 
     def write_error(self, status_code, **kwargs):
         if status_code == 500:
             logging.error("500 error. Big problem")
-            self.render('500.html', title="Bitusenet - Error")
+            self.render('500.html', title="Bitusenet - Error", aff=None, uid=None)
         else:
-            self.render('404.html', title="Bitusenet - Error")
+            self.render('404.html', title="Bitusenet - Error", aff=None, uid=None)
 
 
 class ResetHandler(BaseHandler):
@@ -396,7 +396,7 @@ class GoogHandler(BaseHandler):
 
 class A404Handler(BaseHandler):
     def get(self):
-        self.render('404.html', title="Bitusenet - Not Found")
+        self.render('404.html', title="Bitusenet - Not Found", aff=aff, uid=uid)
 
 
 class LogoutHandler(BaseHandler):
