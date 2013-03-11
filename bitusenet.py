@@ -204,7 +204,7 @@ class HomeHandler(BaseHandler):
         uid = self.get_argument('uid', None)
         collection = self.mongodb.price
 
-        price = collection.find_one()
+        price = self.mongodb.price.find_one()
         price = "%.2f"%price['charge']
 
         self.render('index.html', aff=aff, uid=uid, price=price)
@@ -250,7 +250,10 @@ class SignupHandler(BaseHandler):
     def get(self):
         aff = self.get_argument('aff', None)
         uid = self.get_argument('uid', None)
-        self.render('signup.html', errors=None, aff=aff, uid=uid)
+        price = self.mongodb.price.find_one()
+        price = "%.2f"%price['charge']
+
+        self.render('signup.html', errors=None, aff=aff, uid=uid, price=price)
 
     def post(self):
         username = self.get_argument('username', None)
@@ -258,12 +261,15 @@ class SignupHandler(BaseHandler):
         email = self.get_argument('email', None)
         aff = self.get_argument('aff', None)
         uid = self.get_argument('uid', None)
+        price = self.mongodb.price.find_one()
+        price = "%.2f"%price['charge']
+
         
         if not username:
-            self.render('signup.html', errors="usernameempty", aff=aff, uid=uid)
+            self.render('signup.html', errors="usernameempty", aff=aff, uid=uid, price=price)
             return
         if not password:
-            self.render('signup.html', errors="passwordempty", aff=aff, uid=uid)
+            self.render('signup.html', errors="passwordempty", aff=aff, uid=uid, price=price)
             return
 
         usercoll = self.mongodb.bitusenet
@@ -273,14 +279,14 @@ class SignupHandler(BaseHandler):
         exists = usercoll.find_one({'username': username})
         if exists:
             logging.error('username exists on website')
-            self.render('signup.html', errors="usernameexists", aff=aff, uid=uid)
+            self.render('signup.html', errors="usernameexists", aff=aff, uid=uid, price=price)
             return
 
         # Check if username exists in auth db.
         exists = authdb.get("""SELECT * FROM auth.logins WHERE username = %s LIMIT 1""", username)
         if exists:
             logging.error('username exists in auth db.')
-            self.render('signup.html', errors="usernameexists", aff=aff, uid=uid)
+            self.render('signup.html', errors="usernameexists", aff=aff, uid=uid, price=price)
             return
 
         # password salt and hash
@@ -317,11 +323,14 @@ class SuccessHandler(BaseHandler):
     def get(self):
         aff = self.get_argument('aff', None)
         uid = self.get_argument('uid', None)
+        price = self.mongodb.price.find_one()
+        price = "%.2f"%price['charge']
+
         if not self.current_user['address']:
             self.send_error()
             logging.error("No btc address associated with users account. No addresses free?")
             return
-        self.render('success.html', address=self.current_user['address'], aff=aff, uid=uid)
+        self.render('success.html', address=self.current_user['address'], aff=aff, uid=uid, price=price)
 
 
 class CallbackHandler(BaseHandler):
@@ -410,13 +419,17 @@ class FAQHandler(BaseHandler):
     def get(self):
         aff = self.get_argument('aff', None)
         uid = self.get_argument('uid', None)
-        self.render('faq.html', aff=aff, uid=uid)
+        price = self.mongodb.price.find_one()
+        price = "%.2f"%price['charge']
+
+        self.render('faq.html', aff=aff, uid=uid, price=price)
 
 
 class ContactHandler(BaseHandler):
     def get(self):
         aff = self.get_argument('aff', None)
         uid = self.get_argument('uid', None)
+
         self.render('contact.html', aff=aff, uid=uid)
 
 
