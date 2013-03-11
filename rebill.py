@@ -10,6 +10,9 @@ import tornado.database
 import pymongo
 
 import logging
+import sys
+import requests
+import tornado.escape
 
 define("mysql_user", default="nick", help="database user")
 define("mysql_password", default="mohair94", help="database password")
@@ -34,14 +37,29 @@ mongoconnection = pymongo.Connection('10.244.42.52', 27017)
 mongobitusenet = mongoconnection.bitusenet
 mongoaddresses = mongobitusenet.addresses
 mongousers = mongobitusenet.bitusenet
+mongoprice = mongobitusenet.price
 
 users = mongousers.find()
 now = datetime.datetime.now()
 
+
+r = requests.get('http://bitcoincharts.com/t/weighted_prices.json')
+  
+prices = tornado.escape.json_decode(r.text)
+for k,v in prices.iteritems():
+    if k == 'USD':
+        logging.info(v['24h'])
+        charge = 13 / float(v['24h'])
+        mongoprice.update({ "_id" : { '$exists' : True } }, {'USD':v['24h'], 'charge':charge})
+        
+        
+
+
+sys.exit()
 logger.info("%s"%now)
 for user in users:
     created = datetime.datetime.strptime(user['created'], "%Y-%m-%d %H:%M:%S")
-    activatedcheck = created + datetime.timedelta(hours=6)
+    activatedcheck = created + datetime.timedelta(hours=12)
     createdcheck = created + datetime.timedelta(days=30)
 
     if now > activatedcheck and user['active'] == False:

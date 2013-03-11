@@ -44,6 +44,7 @@ class Application(tornado.web.Application):
             (r"/faq", FAQHandler),
             (r"/google4a97efb83d0a5d8f.html", GoogHandler),
             (r"/callback", CallbackHandler),
+            (r"/test", TestHandler),            
             (r".*", A404Handler),
             ]
 
@@ -301,6 +302,7 @@ class SignupHandler(BaseHandler):
         addresscoll.update({'address':btcaddress['address']},{'$set':{'used':True}})
 
         self.set_cookie('bitusenet', username)
+        logging.info('Account created for %s with aff of %s'%(username, aff))
         self.redirect("/success")
 
 
@@ -357,8 +359,10 @@ class CallbackHandler(BaseHandler):
             # check total sent == 1 btc
             total = int(dbaddress['amount']) + int(amount)
             #if total < 100000000:
-            if total < 60000000:
-                logging.error("amount received was not a full bitcoin. %s - %s", amount, user['username'])
+            #if total < 60000000:
+            #if total < 50000000:
+            if total < 35000000:
+                logging.error("amount received was not a half bitcoin. %s - %s", amount, user['username'])
                 addresscoll.update({'address':address},{'$set':{'amount':total}})
                 return
 
@@ -366,8 +370,10 @@ class CallbackHandler(BaseHandler):
                 logging.info('Yep, user is part of the affiliate network')
                 if user['aff'] == 'nco' and user.has_key('uid') and user['uid']:
                     logging.info('newzb.net affiliate link confirmed. Calling newzb callback')
-                    uidhash = self.create_sig(user['uid'])
+                    uidhash = self.create_sig(int(user['uid']))
+                    logging.info('newzb request = https://newzb.net/bitusecall/?uid=%s&hash=%s'%("4918", uidhash))
                     r = requests.get('https://newzb.net/bitusecall/?uid=%s&hash=%s'%(user['uid'], uidhash))
+                    logging.info(r.text)
                     logging.info(r)
 
             # everything is good to go. found matching bitcoin addresses
@@ -380,6 +386,18 @@ class CallbackHandler(BaseHandler):
             usercoll.update({'username':user['username']}, {'$set':{'active':True, 'address':None}})
 
             logging.info("Success. User %s sent 1 bitcoin. Accout activated", user['username'])
+
+
+class TestHandler(BaseHandler):
+    def get(self):
+        uidhash = self.create_sig(int(4918))
+        logging.info('newzb.net affiliate link confirmed. Calling newzb callback')    
+        logging.info('newzb request = https://newzb.net/bitusecall/?uid=%s&hash=%s'%("4918", uidhash))
+        r = requests.get('https://newzb.net/bitusecall/?uid=%s&hash=%s'%("4918", uidhash))
+        logging.info(r)
+        logging.info(r.text)
+
+        self.write('finished')
 
 
 class FAQHandler(BaseHandler):
