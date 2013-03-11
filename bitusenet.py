@@ -196,11 +196,17 @@ class ActualResetHandler(BaseHandler):
 
         self.redirect('/login')
 
+
 class HomeHandler(BaseHandler):
     def get(self):
         aff = self.get_argument('aff', None)
         uid = self.get_argument('uid', None)
-        self.render('index.html', aff=aff, uid=uid)
+        collection = self.mongodb.price
+
+        price = collection.find_one()
+        price = "%.2f"%price['charge']
+
+        self.render('index.html', aff=aff, uid=uid, price=price)
 
 
 class DashboardHandler(BaseHandler):
