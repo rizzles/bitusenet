@@ -43,23 +43,12 @@ users = mongousers.find()
 now = datetime.datetime.now()
 
 
-r = requests.get('http://bitcoincharts.com/t/weighted_prices.json')
-  
-prices = tornado.escape.json_decode(r.text)
-for k,v in prices.iteritems():
-    if k == 'USD':
-        logging.info(v['24h'])
-        charge = 13 / float(v['24h'])
-        mongoprice.update({ "_id" : { '$exists' : True } }, {'USD':v['24h'], 'charge':charge})
-        
         
 
-
-sys.exit()
 logger.info("%s"%now)
 for user in users:
     created = datetime.datetime.strptime(user['created'], "%Y-%m-%d %H:%M:%S")
-    activatedcheck = created + datetime.timedelta(hours=12)
+    activatedcheck = created + datetime.timedelta(hours=8)
     createdcheck = created + datetime.timedelta(days=30)
 
     if now > activatedcheck and user['active'] == False:

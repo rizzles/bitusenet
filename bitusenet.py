@@ -105,11 +105,14 @@ class ResetHandler(BaseHandler):
         email = self.get_argument('email', None)
         aff = self.get_argument('aff', None)        
         uid = self.get_argument('uid', None)
+
         if not email:
             self.render('reset.html', errors='emailempty', aff=aff, uid=uid)
             return
+        email = email.lower()
 
         collection = self.mongodb.bitusenet
+        logging.info("Searching db for user with email address %s", email)
         user = collection.find_one({'email':email})
         
         if not user:
@@ -118,7 +121,7 @@ class ResetHandler(BaseHandler):
             return
 
         if user['active'] == False:
-            logging.error('password reset requested for unknown email address')
+            logging.error('password reset requested for inactive account')
             self.redirect("/resetsent")
             return
 
@@ -205,7 +208,7 @@ class HomeHandler(BaseHandler):
         collection = self.mongodb.price
 
         price = self.mongodb.price.find_one()
-        price = "%.2f"%price['charge']
+        price = "%.3f"%price['charge']
 
         self.render('index.html', aff=aff, uid=uid, price=price)
 
@@ -242,7 +245,7 @@ class LoginHandler(BaseHandler):
                 self.redirect("/dashboard")
                 return
 
-        logging.info("Could not match email or password on login")
+        logging.info("Could not match username or password on login")
         self.render("login.html", errors="notfound", aff=aff, uid=uid)
         
 
@@ -251,7 +254,7 @@ class SignupHandler(BaseHandler):
         aff = self.get_argument('aff', None)
         uid = self.get_argument('uid', None)
         price = self.mongodb.price.find_one()
-        price = "%.2f"%price['charge']
+        price = "%.3f"%price['charge']
 
         self.render('signup.html', errors=None, aff=aff, uid=uid, price=price)
 
@@ -262,7 +265,7 @@ class SignupHandler(BaseHandler):
         aff = self.get_argument('aff', None)
         uid = self.get_argument('uid', None)
         price = self.mongodb.price.find_one()
-        price = "%.2f"%price['charge']
+        price = "%.3f"%price['charge']
 
         
         if not username:
@@ -271,6 +274,8 @@ class SignupHandler(BaseHandler):
         if not password:
             self.render('signup.html', errors="passwordempty", aff=aff, uid=uid, price=price)
             return
+        if email:
+            email = email.lower()
 
         usercoll = self.mongodb.bitusenet
         addresscoll = self.mongodb.addresses
@@ -296,6 +301,7 @@ class SignupHandler(BaseHandler):
         # find free bitcoin address to associate with user
         btcaddress = addresscoll.find_one({'used':False})
         if not btcaddress:
+            logging.error('free address not available')
             self.send_error()
             return
 
@@ -324,7 +330,7 @@ class SuccessHandler(BaseHandler):
         aff = self.get_argument('aff', None)
         uid = self.get_argument('uid', None)
         price = self.mongodb.price.find_one()
-        price = "%.2f"%price['charge']
+        price = "%.3f"%price['charge']
 
         if not self.current_user['address']:
             self.send_error()
@@ -376,10 +382,12 @@ class CallbackHandler(BaseHandler):
             #if total < 100000000:
             #if total < 60000000:
             #if total < 50000000:
+            """
             if total < 35000000:
                 logging.error("amount received was not a half bitcoin. %s - %s", amount, user['username'])
                 addresscoll.update({'address':address},{'$set':{'amount':total}})
                 return
+            """
 
             if user.has_key('aff') and user['aff']:
                 logging.info('Yep, user is part of the affiliate network')
@@ -420,7 +428,7 @@ class FAQHandler(BaseHandler):
         aff = self.get_argument('aff', None)
         uid = self.get_argument('uid', None)
         price = self.mongodb.price.find_one()
-        price = "%.2f"%price['charge']
+        price = "%.3f"%price['charge']
 
         self.render('faq.html', aff=aff, uid=uid, price=price)
 
